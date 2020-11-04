@@ -1,29 +1,39 @@
 <ion-content [fullscreen]="true">
 
-  <ion-card>
-    <img src="https://www.tepic.tecnm.mx/images/escudo_itt_200x200.png">
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    
-    <ion-card-content>
+  <ion-item>
+    <ion-label position="floating">Buscar</ion-label>
+    <ion-input type="text" [(ngModel)]="search" (keyup)="filter()"></ion-input>
+  </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
+  <div *ngFor="let place of places; index as i">
+    <ion-card>
+      <img src="{{place.image}}">
+      <ion-card-header>
+        <ion-card-title>{{place.title}}</ion-card-title>
+        <ion-card-subtitle>{{place.subtitle}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{place.description}}
 
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password"></ion-input>
-      </ion-item>
+        <ion-chip color="success" *ngIf="place.active">
+          <ion-label>Activo</ion-label>
+        </ion-chip>
+        <ion-chip color="danger" *ngIf="!place.active">
+          <ion-label>Inactivo</ion-label>
+        </ion-chip>
 
-      <ion-button size="medium" expand="block">Entrar</ion-button>
+        <ion-button (click)="deletePlace(i)" color="danger">
+          Eliminar
+        </ion-button>
 
-    </ion-card-content>
+        <ion-button (click)="changeStatus(i)" color="warning">
+          Cambiar Estatus
+        </ion-button>
 
 
 
+      </ion-card-content>
 
-  </ion-card>
+    </ion-card>
+  </div>
 </ion-content>
